@@ -1,6 +1,8 @@
-# .
-
-This template should help get you started developing with Vue 3 in Vite.
+```shell
+cp src/data.dev.ts src/data.ts
+npm install
+npm run dev
+```
 
 ## Recommended IDE Setup
 
