@@ -1,12 +1,12 @@
-enum Category {
-  QUESTIONS = 'questions',
-  GREETINGS = 'greetings',
-  DAY_TO_DAY = 'day-to-day',
-  WORK = 'work',
-  WORDS = 'words',
+export enum Category {
+  QUESTIONS = 1,
+  GREETINGS = 2,
+  DAY_TO_DAY = 3,
+  WORK = 4,
+  WORDS = 5,
 }
 
-interface Translation {
+export interface Translation {
   id: number
   text: string
   translatedText: string
