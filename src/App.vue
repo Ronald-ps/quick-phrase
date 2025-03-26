@@ -1,7 +1,7 @@
 <template>
   <v-row class="ma-2">
     <v-col cols="6">
-      <v-text-field label="Pesquisa" outlined />
+      <v-text-field v-model="search" label="Pesquisa" outlined />
     </v-col>
     <v-col cols="3">
       <v-text-field label="Categoria" outlined />
@@ -12,41 +12,45 @@
   </v-row>
 
   <v-row class="ma-2">
-    <v-col>
+    <v-col v-for="translation in translations" :key="translation.id" cols="12" md="6">
       <v-card>
         <template v-slot:title>
-          This is a title
+          {{ translation.id }}
         </template>
 
         <template v-slot:subtitle>
-          This is a card subtitle
+          {{
+            translation.text.slice(0, 26) + '...'
+          }}
         </template>
 
         <template v-slot:text>
           <v-row>
             <v-col>
-              <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat, facere! Corrupti saepe
-                est, eveniet a eligendi, illum amet quam tempore pariatur temporibus atque nihil voluptatem, suscipit
-                sunt sapiente! Ut, quisquam.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat, facere! Corrupti saepe est, eveniet a
-                eligendi, illum amet quam tempore pariatur temporibus atque nihil voluptatem, suscipit sunt sapiente!
-                Ut, quisquam.</p>
+              <p class="mb-3">
+                {{ translation.text }}
+              </p>
+              <p>
+                {{ translation.translatedText }}
+
+              </p>
             </v-col>
           </v-row>
         </template>
 
         <div class="px-4 mb-2">
           <v-chip-group>
-            <v-chip>Categoria 1</v-chip>
-
-            <v-chip>Categoria 2</v-chip>
-
-            <v-chip>Categoria 3</v-chip>
-
-            <v-chip>Categoria 4</v-chip>
+            <v-chip v-for="category in translation.categories" :key="category">Categoria 1</v-chip>
           </v-chip-group>
         </div>
       </v-card>
     </v-col>
   </v-row>
 </template>
+
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+import { getTranslations } from './helper';
+const search = ref('');
+const translations = computed(() => getTranslations([], search.value));
+</script>

@@ -1,13 +1,8 @@
 import type { Category, Translation } from './data.dev'
 import { translations } from './data.dev'
-import {
-  getSubstrings,
-  mergeTranslations,
-  searchSubstrings,
-  searchTranslations,
-} from './services/search'
+import { mergeTranslations, searchSubstrings, searchTranslations } from './services/search'
 
-const getTranslations = (categories: Category[], text: string): Translation[] => {
+export const getTranslations = (categories: Category[], text: string): Translation[] => {
   const translationsByCategories = translations.filter((translation) => {
     return translation.categories.some((category) => categories.includes(category))
   })
@@ -18,6 +13,7 @@ const getTranslations = (categories: Category[], text: string): Translation[] =>
 
   const words = text.split(' ').map((word) => word.toLowerCase().trim())
   const targetTranslations = searchSubstrings(words, translationsByCategories)
+  console.log('by-words------------', targetTranslations)
 
   if (targetTranslations.length > 1) {
     return targetTranslations
@@ -50,6 +46,7 @@ const getTranslations = (categories: Category[], text: string): Translation[] =>
     }
   }
 
+  console.log('last--------------', targetTranslations)
   let offLayerTranslations = searchTranslations({
     text: replacedText,
     translations: translationsByCategories,
